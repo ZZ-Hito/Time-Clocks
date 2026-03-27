@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>复古时钟</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #f2ebe0; /* 米白色背景 */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            border-top: 2px solid #b8b5c0;
+            border-bottom: 2px solid #b8b5c0;
+        }
+        .time {
+            font-size: 8rem;
+            font-weight: 500;
+            color: #5a5174; /* 深紫色时间文字 */
+            letter-spacing: 0.02em;
+        }
+        .date {
+            font-size: 2.5rem;
+            color: #8a8695; /* 浅紫色日期文字 */
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="time" id="time">14:28:40</div>
+    <div class="date" id="date">星期六, 三月 21, 2026</div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            // 格式化时间：HH:MM:SS
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeStr = `${hours}:${minutes}:${seconds}`;
+
+            // 格式化日期：星期, 月份 日期, 年份
+            const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            const months = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
+            const weekday = weekdays[now.getDay()];
+            const month = months[now.getMonth()];
+            const date = now.getDate();
+            const year = now.getFullYear();
+            const dateStr = `${weekday}, ${month} ${date}, ${year}`;
+
+            // 更新DOM
+            document.getElementById('time').textContent = timeStr;
+            document.getElementById('date').textContent = dateStr;
+        }
+
+        // 立即更新一次，然后每秒更新
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
